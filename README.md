@@ -1,12 +1,12 @@
 ## Charging Battery App
 
-Write a program that consumes 2 source streams, charging data (timestamp, socketId, vehicleId and powerInWatts), and battery data (timestamp, vehicleId and stateOfChargeInPercent),
-teh combines them and produce output data (timestamp, socketId, vehicleId, powerInWatts and stateOfChargeInPercent).
+Write a program that consumes two source streams, charging data (timestamp, socketId, vehicleId, and powerInWatts) and battery data (timestamp, vehicleId, and stateOfChargeInPercent).
+teh combines them and produces output data (timestamp, socketId, vehicleId, powerInWatts, and stateOfChargeInPercent).
 
-Only emit output when charging data arrives, output contains the last received stateOfChargeInPercent for teh same vehicleId.
+Only emit output when charging data arrives; output contains the last received stateOfChargeInPercent for the same vehicleId.
 
 #### Technologies
-Scala, Akka-Streams, Redis, Docker.
+Scala, Akka-Streams, Redis, and Docker.
 
 ### Setting up Redis
 ```
