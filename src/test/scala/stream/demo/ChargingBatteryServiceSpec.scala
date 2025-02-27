@@ -37,7 +37,7 @@ class ChargingBatteryServiceSpec
   }
 
   "ChargingBatteryService" should {
-    "combine charging data and battery data into output data and cache in redis" in {
+    "combine charging data and battery data into output data and cache" in {
       val chargingBatteryService = ChargingBatteryService(jedis)
       // Mock data
       val chargingSource = Source(
@@ -81,7 +81,7 @@ class ChargingBatteryServiceSpec
       cachedOutputData2 shouldEqual OutputData("2023-11-02T17:09:00Z", "s456", "v456", 70, 55)
     }
 
-    "combine charging data and battery data into output data and cache in redis - fail case" in {
+    "cache charging with and battery data and return empty outut" in {
       val chargingBatteryService = ChargingBatteryService(jedis)
       // Mock data
       val chargingSource = Source(
