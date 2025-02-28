@@ -1,4 +1,4 @@
-## Charging Battery App
+## Electrical Charging Station App
 
 Write a program that consumes two source streams, charging data (timestamp, socketId, vehicleId, and powerInWatts) and battery data (timestamp, vehicleId, and stateOfChargeInPercent).
 Then, they are combined and produce output data (timestamp, socketId, vehicleId, powerInWatts, and stateOfChargeInPercent).
