@@ -1,21 +1,22 @@
-package main.scala.stream.demo.service
+package stream.demo.service
 
 import akka.NotUsed
 import akka.stream.OverflowStrategy
 import akka.stream.scaladsl.{Merge, Source}
 import main.scala.stream.demo.model.Constants.{Buffer_Size, Charging_Source_Delay, Redis_TTL_Seconds}
-import main.scala.stream.demo.model.{BatteryData, ChargingData, OutputData}
+import main.scala.stream.demo.model.OutputData
 import redis.clients.jedis.Jedis
 import spray.json._
+import stream.demo.model.{BatteryData, ChargingBattery, ChargingData}
 
 import scala.concurrent.Future
 
 case class ChargingBatteryService(jedis: Jedis) {
   def process(chargingSource: Source[ChargingData, NotUsed], batterySource: Source[BatteryData, NotUsed]): Source[OutputData, NotUsed] = {
     // Combine the two sources into a single stream
-    val combinedSource: Source[Either[ChargingData, BatteryData], NotUsed] =
+    val combinedSource: Source[ChargingBattery, NotUsed] =
       Source
-        .combine(chargingSource.delay(Charging_Source_Delay).map(Left(_)), batterySource.map(Right(_)))(Merge(_))
+        .combine(chargingSource.delay(Charging_Source_Delay), batterySource)(Merge(_))
         .buffer(Buffer_Size, OverflowStrategy.dropHead)
 
     // Process the combined stream
@@ -28,9 +29,9 @@ case class ChargingBatteryService(jedis: Jedis) {
       }
   }
 
-  private def updateLocalCache(jedis: Jedis, chargingBatteryData: Either[ChargingData, BatteryData]): Future[OutputData] =
+  private def updateLocalCache(jedis: Jedis, chargingBatteryData: ChargingBattery): Future[OutputData] =
     chargingBatteryData match {
-      case Left(chargingData) =>
+      case chargingData: ChargingData =>
         // Use timestamp as redis key
         val key         = chargingData.vehicleId
         val cachedValue = jedis.get(key)
@@ -65,7 +66,7 @@ case class ChargingBatteryService(jedis: Jedis) {
           Future.successful(newCombinedData)
         }
 
-      case Right(batteryData) =>
+      case batteryData: BatteryData =>
         val outputData = OutputData(
           timestamp = batteryData.timestamp,
           socketId = "",

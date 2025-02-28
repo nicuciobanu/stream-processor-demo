@@ -4,9 +4,10 @@ import akka.NotUsed
 import akka.actor.ActorSystem
 import akka.stream.scaladsl.{Sink, Source}
 import main.scala.stream.demo.model.Constants.{Host, Port}
-import main.scala.stream.demo.model.{BatteryData, ChargingData, OutputData}
-import main.scala.stream.demo.service.ChargingBatteryService
+import main.scala.stream.demo.model.OutputData
 import redis.clients.jedis.Jedis
+import stream.demo.model.{BatteryData, ChargingData}
+import stream.demo.service.ChargingBatteryService
 
 import scala.util.Random
 

@@ -16,10 +16,8 @@ libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-stream"         % akkaVersion,
   "redis.clients"     %  "jedis"               % "4.3.1",
   "io.spray"          %% "spray-json"          % "1.3.6",
-  "org.scalatest"     %% "scalatest"           % "3.2.13" % Test,
   "com.typesafe.akka" %% "akka-stream-testkit" % akkaVersion % Test,
   "org.scalatest"     %% "scalatest"           % scalaTestVersion % Test,
-  "org.mockito"       %% "mockito-scala"       % mockitoVersion % Test,
   "com.dimafeng"      %% "testcontainers-scala-scalatest" % "0.41.5" % Test,
   "com.dimafeng"      %% "testcontainers-scala-redis" % "0.41.5" % Test,
 )

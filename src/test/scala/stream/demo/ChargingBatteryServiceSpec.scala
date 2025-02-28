@@ -4,13 +4,14 @@ import akka.actor.ActorSystem
 import akka.stream.scaladsl._
 import akka.testkit.TestKit
 import com.dimafeng.testcontainers.{ForAllTestContainer, RedisContainer}
-import main.scala.stream.demo.model.{BatteryData, ChargingData, OutputData}
-import main.scala.stream.demo.service.ChargingBatteryService
+import main.scala.stream.demo.model.OutputData
 import org.scalatest.BeforeAndAfterEach
 import org.scalatest.matchers.should.Matchers
 import org.scalatest.wordspec.AnyWordSpecLike
 import redis.clients.jedis.Jedis
 import spray.json._
+import stream.demo.model.{BatteryData, ChargingData}
+import stream.demo.service.ChargingBatteryService
 
 import scala.concurrent.Await
 import scala.concurrent.duration._
