@@ -12,3 +12,8 @@ Scala, Akka-Streams, Redis, and Docker.
 ```
 docker run -d --name redis-stack-server -p 6379:6379 redis/redis-stack-server:latest
 ```
+
+### Explanation
+```
+https://medium.com/@ciobanunicu.boris/akka-streams-processing-with-redis-bb210598fa64
+```
